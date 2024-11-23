@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {useParams} from 'react-router-dom'
 
-export default function MovieDetail({addToSaved,isMovieSaved}) {
+export default function MovieDetail({addToSaved,isMovieSaved,removeSaved}) {
   const {id} = useParams();  
   const [movie, setMovie] = useState(null);
   const [error, setError] = useState(null);
@@ -26,7 +26,7 @@ export default function MovieDetail({addToSaved,isMovieSaved}) {
     };
 
     fetchMovieDetails();
-  }, [id]);
+  }, [movie]);
 
   if (error) {
     return (
@@ -45,42 +45,54 @@ export default function MovieDetail({addToSaved,isMovieSaved}) {
   }
 
   return (
-<div className="bg-gray-900 min-h-screen flex flex-col items-center justify-start p-6 text-white">
+<div className="bg-gray-900 min-h-screen flex flex-col items-center justify-start p-4 lg:p-6 text-white">
   <div className="w-full max-w-4xl flex flex-col lg:flex-row bg-gray-800 rounded-lg shadow-lg overflow-hidden">
     {/* Movie Image */}
-    <div className="w-full lg:w-1/3 h-full">
+    <div className="w-full lg:w-1/3 h-auto">
       <img
         src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
         alt={movie.title}
-        className="w-full h-full object-cover rounded-lg"
+        className="w-full h-auto object-cover rounded-t-lg lg:rounded-none lg:rounded-l-lg"
       />
     </div>
 
     {/* Movie Details */}
-    <div className="p-6 flex flex-col justify-between lg:w-2/3 overflow-y-auto max-h-screen">
-      <div className="flex items-center mb-4">
-        <h1 className="text-4xl font-bold mr-3">{movie.title}</h1>
-        {isMovieSaved(movie.id)?
-        (<p className="text-red-500 font-semibold">Added to Favourites</p>):
-        (<img src="/fav.png" alt="Favorite Icon" className="w-8 h-8 animate-heart" onClick={()=>addToSaved(movie)} />)
-        }
-        
+    <div className="p-4 lg:p-6 flex flex-col justify-between lg:w-2/3 max-h-[calc(100vh-100px)] overflow-y-auto">
+      {/* Title and Favorite */}
+      <div className="flex flex-col sm:flex-row items-center sm:justify-between mb-4">
+        <h1 className="text-3xl sm:text-4xl font-bold mb-2 sm:mb-0 text-center sm:text-left">
+          {movie.title}
+        </h1>
+        {isMovieSaved(movie.id) ? (
+          <p className="text-red-500 font-semibold text-center sm:text-right">
+            Added to Favourites <span onClick={()=>(removeSaved(movie.id))} className="cursor-pointer">X</span>
+          </p>
+        ) : (
+          <img
+            src="/fav.png"
+            alt="Favorite Icon"
+            className="w-8 h-8 cursor-pointer animate-heart"
+            onClick={() => addToSaved(movie)}
+          />
+        )}
       </div>
-      <div className="mb-4">
-        <p className="text-lg mb-2">
+
+      {/* Details */}
+      <div className="text-center sm:text-left mb-4">
+        <p className="text-sm sm:text-lg mb-2">
           <strong>Year:</strong> {movie.release_date.split("-")[0]}
         </p>
-        <p className="text-lg mb-2">
-          <strong>Director:</strong>
-          {movie.director ? movie.director : "N/A"}
+        <p className="text-sm sm:text-lg mb-2">
+          <strong>Director:</strong> {movie.director ? movie.director : "N/A"}
         </p>
-        <p className="text-lg mb-4">
+        <p className="text-sm sm:text-lg mb-4">
           <strong>Description:</strong> {movie.overview}
         </p>
-        <p className="text-lg mb-4">
-          <strong>Genres:</strong> {movie.genres.map((genre) => genre.name).join(", ")}
+        <p className="text-sm sm:text-lg mb-4">
+          <strong>Genres:</strong>{" "}
+          {movie.genres.map((genre) => genre.name).join(", ")}
         </p>
-        <p className="text-lg">
+        <p className="text-sm sm:text-lg">
           <strong>Rating:</strong> {movie.vote_average} / 10
         </p>
       </div>
@@ -88,13 +100,14 @@ export default function MovieDetail({addToSaved,isMovieSaved}) {
       {/* Back Button */}
       <button
         onClick={() => window.history.back()}
-        className="mt-6 px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+        className="mt-6 px-4 py-2 sm:px-6 sm:py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
       >
         Back to Movies List
       </button>
     </div>
   </div>
 </div>
+
 
 
   );

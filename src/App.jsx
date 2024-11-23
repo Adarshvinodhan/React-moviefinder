@@ -33,11 +33,19 @@ export default function App(){
       }
       
       const isMovieSaved = (movieID)=>saved.some(movie=>movie.id===movieID)
+
+      const removeSaved = (movieID)=>{
+        const index = saved.findIndex(movie => movie.id === movieID);
+        if (index !== -1) {
+          saved.splice(index, 1); // Remove 1 element at the found index
+          console.log(saved)
+        }
+        }
   return(
         <Router>
           <Routes>
             <Route path='/' element={<SearchBar handleInput={handleInput} result={result} searchQuery={searchQuery}/>}/>
-            <Route path = '/movie/:id' element = {<MovieDetail addToSaved={addToSaved} isMovieSaved={isMovieSaved}/>}/>
+            <Route path = '/movie/:id' element = {<MovieDetail addToSaved={addToSaved} removeSaved={removeSaved} isMovieSaved={isMovieSaved}/>}/>
             <Route path = '/saved' element = {<SavedMovies movies={saved}/>}/>
           </Routes>
         </Router>
