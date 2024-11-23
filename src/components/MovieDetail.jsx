@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import {useParams} from 'react-router-dom'
 
-export default function MovieDetail() {
+export default function MovieDetail({addToSaved,isMovieSaved}) {
   const {id} = useParams();  
   const [movie, setMovie] = useState(null);
   const [error, setError] = useState(null);
+
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -57,21 +58,27 @@ export default function MovieDetail() {
 
     {/* Movie Details */}
     <div className="p-6 flex flex-col justify-between lg:w-2/3 overflow-y-auto max-h-screen">
-      <h1 className="text-4xl font-bold mb-4">{movie.title}</h1>
+      <div className="flex items-center mb-4">
+        <h1 className="text-4xl font-bold mr-3">{movie.title}</h1>
+        {isMovieSaved(movie.id)?
+        (<p className="text-red-500 font-semibold">Added to Favourites</p>):
+        (<img src="/fav.png" alt="Favorite Icon" className="w-8 h-8 animate-heart" onClick={()=>addToSaved(movie)} />)
+        }
+        
+      </div>
       <div className="mb-4">
         <p className="text-lg mb-2">
           <strong>Year:</strong> {movie.release_date.split("-")[0]}
         </p>
         <p className="text-lg mb-2">
           <strong>Director:</strong>
-          {/* If you're fetching director from credits, it would go here */}
           {movie.director ? movie.director : "N/A"}
         </p>
         <p className="text-lg mb-4">
           <strong>Description:</strong> {movie.overview}
         </p>
         <p className="text-lg mb-4">
-          <strong>Genres:</strong> {movie.genres.map(genre => genre.name).join(", ")}
+          <strong>Genres:</strong> {movie.genres.map((genre) => genre.name).join(", ")}
         </p>
         <p className="text-lg">
           <strong>Rating:</strong> {movie.vote_average} / 10
@@ -88,6 +95,7 @@ export default function MovieDetail() {
     </div>
   </div>
 </div>
+
 
   );
 };
