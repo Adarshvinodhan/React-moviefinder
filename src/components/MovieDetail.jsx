@@ -64,9 +64,17 @@ export default function MovieDetail({addToSaved,isMovieSaved,removeSaved}) {
           {movie.title}
         </h1>
         {isMovieSaved(movie.id) ? (
-          <p className="text-red-500 font-semibold text-center sm:text-right">
-            Added to Favourites <span onClick={()=>(removeSaved(movie.id))} className="cursor-pointer">X</span>
+          <p className="text-white font-semibold text-center sm:text-right">
+          Remove from Favourite's - 
+          <span 
+            onClick={() => removeSaved(movie.id)} 
+            className="cursor-pointer font-bold text-red-600 hover:scale-110 transition-transform duration-300 relative group"
+          >
+            <span className="absolute inset-0 bg-red-600 opacity-20 rounded-full scale-0 transition-transform duration-300 group-hover:scale-150"></span>
+            <span className="relative z-10">X</span>
+          </span>
           </p>
+        
         ) : (
           <img
             src="/fav.png"

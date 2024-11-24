@@ -5,7 +5,10 @@ function SearchBar({handleInput,result}) {
   return (
 <div className="text-center p-6 bg-gray-900 min-h-screen flex flex-col items-center justify-center relative">
   {/* Header */}
-  <h1 className="text-4xl font-bold text-white mb-6">🎥 Movie Searcher</h1>
+  <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 mb-6 animate-fadeInUp">
+  Movie Finder
+</h1>
+
 
   {/* Input and Button Container */}
   <div className="flex gap-4 items-center mb-8 w-full max-w-md">
@@ -15,11 +18,6 @@ function SearchBar({handleInput,result}) {
       onChange={handleInput}
       className="flex-grow px-6 py-3 bg-gray-800 text-white border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
     />
-
-    {/* Search Button */}
-    <button className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-      Search
-    </button>
   </div>
 
   {/* Results with Scrollable Container */}
@@ -29,9 +27,11 @@ function SearchBar({handleInput,result}) {
         <ul key={movie.id} className="list-none">
           <Link
             to={`/movie/${movie.id}`}
-            className="text-white py-2 px-4 hover:bg-gray-700 rounded-md transition"
+            className=""
           >
+            <li className='text-white py-1.5 px-4 hover:bg-gray-700 rounded-md transition'>
             {movie.title}
+          </li>
           </Link>
         </ul>
       ))
@@ -48,9 +48,9 @@ function SearchBar({handleInput,result}) {
     <img
       src="/fav.png"
       alt="fav"
-      className="w-8 h-8 sm:w-10 sm:h-10 animate-heart"
+      className="w-8 h-8 sm:w-10 sm:h-10 animate-fadeInUp"
     />
-    <span className='text-white font-bold'>Your Fav's</span>
+    <span className='font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 animate-fadeInUp'>Your Fav's</span>
   </Link>
 </div>
 

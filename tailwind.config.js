@@ -1,22 +1,16 @@
 // tailwind.config.js
 module.exports = {
-  content: [
-    "./src/**/*.{html,js,jsx,ts,tsx}", // Add the paths where you use Tailwind
-  ],
+  content: ['./src/**/*.{js,jsx,ts,tsx}'], // Adjust the path to your project files
   theme: {
     extend: {
-      animation: {
-        heart: "beat 1s ease-in-out infinite", // This applies the animation
-      },
       keyframes: {
-        beat: {
-          "0%, 100%": {
-            transform: "scale(1)",
-          },
-          "50%": {
-            transform: "scale(1.2)", // Increase size for the 'beating' effect
-          },
+        fadeInUp: {
+          '0%': { opacity: 0, transform: 'translateY(20px)' },
+          '100%': { opacity: 1, transform: 'translateY(0)' },
         },
+      },
+      animation: {
+        fadeInUp: 'fadeInUp 1s ease-out',
       },
     },
   },
