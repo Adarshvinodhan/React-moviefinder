@@ -44,12 +44,22 @@ module.exports = {
           '0%, 100%': { transform: 'rotate(-3deg)' },
           '50%': { transform: 'rotate(3deg)' },
         },
+        glow: {
+          '0%': { boxShadow: '0 0 5px #3b82f6' },
+          '50%': { boxShadow: '0 0 15px #3b82f6' },
+          '100%': { boxShadow: '0 0 5px #3b82f6' },
+        },
         heart: {
           '0%': { transform: 'scale(1)' },
           '30%': { transform: 'scale(1.3)' },
           '40%': { transform: 'scale(1)' },
           '50%': { transform: 'scale(1.3)' },
           '100%': { transform: 'scale(1)' },
+        },
+        borderglow: {
+          '0%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+          '100%': { backgroundPosition: '0% 50%' },
         },
       },
       animation: {
@@ -64,6 +74,9 @@ module.exports = {
         slideInRight: 'slideInRight 1s ease-out',
         wiggle: 'wiggle 0.5s ease-in-out infinite',
         heart: 'heartbeat 1.5s ease-in-out infinite',
+        glow: 'glow 1.5s infinite',
+        borderglow: 'border-glow 2s linear infinite',
+
       },
     },
   },

@@ -15,13 +15,13 @@ function SearchBar({handleInput,result}) {
 
   {/* Input and Button Container */}
   <div className="flex gap-4 items-center mb-8 w-full max-w-md">
-    <input
-      type="text"
-      placeholder="Search for movies"
-      onChange={handleInput}
-      className="flex-grow px-6 py-3 bg-gray-800 text-white border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-    />
-  </div>
+  <input
+    type="text"
+    placeholder="Search for movies"
+    onChange={handleInput}
+    className="flex-grow px-6 py-3 bg-gray-800 text-white border border-gray-700 rounded-lg focus:outline-none focus:ring-0 focus:border-transparent "
+  />
+</div>
 
   {/* Results with Scrollable Container */}
   <div className="w-full max-w-md h-64 overflow-y-auto bg-gray-800 rounded-md shadow-lg mb-16">
@@ -32,7 +32,7 @@ function SearchBar({handleInput,result}) {
             to={`/movie/${movie.id}`}
             className=""
           >
-            <li className='text-white py-1.5 px-4 hover:bg-gray-700 rounded-md transition'>
+            <li className='text-white py-1.5 px-4 hover:bg-gray-700 border-b border-gray-700 rounded-md transition'>
             {movie.title}
           </li>
           </Link>
